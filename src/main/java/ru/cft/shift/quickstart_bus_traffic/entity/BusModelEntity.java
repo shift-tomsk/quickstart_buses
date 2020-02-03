@@ -1,11 +1,22 @@
 package ru.cft.shift.quickstart_bus_traffic.entity;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = "bus_model")
 public class BusModelEntity {
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = IDENTITY)
   private Long id;
+  @Column(name = "name")
   private String name;
+  @Column(name = "size")
   private Long size;
+  @Column(name = "producer")
   private String producer;
 
   public Long getId() {

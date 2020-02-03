@@ -1,8 +1,8 @@
 package ru.cft.shift.quickstart_bus_traffic.repository;
 
+import org.springframework.data.repository.CrudRepository;
 import ru.cft.shift.quickstart_bus_traffic.entity.BusEntity;
 
-public interface IBusRepository {
-  BusEntity add(BusEntity bus);
-  BusEntity get(Long id);
+public interface IBusRepository extends CrudRepository<BusEntity, Long> {
+  BusEntity getBusEntityByNumber(String number);
 }

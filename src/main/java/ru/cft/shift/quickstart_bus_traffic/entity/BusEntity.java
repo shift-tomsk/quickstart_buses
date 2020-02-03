@@ -1,13 +1,24 @@
 package ru.cft.shift.quickstart_bus_traffic.entity;
 
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = "bus")
 public class BusEntity {
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = IDENTITY)
   private Long id;
+  @Column(name = "number")
   private String number;
+  @ManyToOne(cascade = CascadeType.ALL)
   private BusModelEntity model;
-  private HashSet<PassengerEntity> passengers;
+  @OneToMany(cascade = CascadeType.ALL)
+  private Set<PassengerEntity> passengers;
 
   public Long getId() {
     return id;
@@ -33,11 +44,11 @@ public class BusEntity {
     this.model = model;
   }
 
-  public HashSet<PassengerEntity> getPassengers() {
+  public Set<PassengerEntity> getPassengers() {
     return passengers;
   }
 
-  public void setPassengers(HashSet<PassengerEntity> passengers) {
+  public void setPassengers(Set<PassengerEntity> passengers) {
     this.passengers = passengers;
   }
 

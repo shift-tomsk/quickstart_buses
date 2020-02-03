@@ -13,11 +13,24 @@ public class PassengerService implements IPassengerService {
 
   @Override
   public void add(PassengerEntity bus) {
-    passengerRepository.add(bus);
+    passengerRepository.save(bus);
+  }
+
+  @Override
+  public PassengerEntity add(String name, boolean isGatecrasher) {
+    PassengerEntity passengerEntity = new PassengerEntity();
+    passengerEntity.setName(name);
+    passengerEntity.setGatecrasher(isGatecrasher);
+    return passengerRepository.save(passengerEntity);
   }
 
   @Override
   public PassengerEntity get(Long id) {
-    return passengerRepository.get(id);
+    return passengerRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public PassengerEntity getByName(String name) {
+    return passengerRepository.getPassengerEntityByName(name);
   }
 }

@@ -13,11 +13,25 @@ public class BusModelService implements IBusModelService {
 
   @Override
   public void add(BusModelEntity bus) {
-    busModelRepository.add(bus);
+    busModelRepository.save(bus);
+  }
+
+  @Override
+  public BusModelEntity add(String name, Long size, String producer) {
+    BusModelEntity busModelEntity = new BusModelEntity();
+    busModelEntity.setName(name);
+    busModelEntity.setSize(size);
+    busModelEntity.setProducer(producer);
+    return busModelRepository.save(busModelEntity);
   }
 
   @Override
   public BusModelEntity get(Long id) {
-    return busModelRepository.get(id);
+    return busModelRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public BusModelEntity getByName(String name) {
+    return busModelRepository.getBusModelEntityByName(name);
   }
 }
