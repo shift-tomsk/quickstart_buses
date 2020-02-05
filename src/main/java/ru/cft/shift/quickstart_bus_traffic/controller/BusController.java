@@ -1,8 +1,11 @@
 package ru.cft.shift.quickstart_bus_traffic.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shift.quickstart_bus_traffic.entity.BusEntity;
+import ru.cft.shift.quickstart_bus_traffic.model.api.request.AddBusRequest;
 import ru.cft.shift.quickstart_bus_traffic.service.IBusService;
 
 @RestController
@@ -13,12 +16,12 @@ public class BusController {
   @RequestMapping(
       method = RequestMethod.POST,
       path = "/bus/add",
-      consumes = "application/x-www-form-urlencoded",
+      consumes = "application/json",
       produces = "application/json"
-  ) public BusEntity add(
-      @RequestParam(name = "number") String number,
-      @RequestParam(name = "modelName") String modelName) {
-    return busService.add(number, modelName);
+  )
+  @ResponseBody
+  public ResponseEntity<?> add(@RequestBody AddBusRequest addBusRequest) throws Exception {
+    return ResponseEntity.status(HttpStatus.OK).body(busService.createNewBus(addBusRequest));
   }
 
   @RequestMapping(
